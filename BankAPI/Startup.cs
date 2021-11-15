@@ -1,5 +1,7 @@
+using BankAPI.MiddleWare;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,11 +28,11 @@ namespace BankAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.ConfigureCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BankAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank Try_Kach", Version = "v1" });
             });
         }
 
@@ -45,6 +47,12 @@ namespace BankAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCors("CorsPolicy");
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
 
             app.UseRouting();
 

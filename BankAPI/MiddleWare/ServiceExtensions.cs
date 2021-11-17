@@ -1,11 +1,17 @@
 ﻿using BankAPI.Models.DataBaseContext;
 using BankAPI.Models.Entities;
+using BankAPI.Repository.Implementations;
+using BankAPI.Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BankAPI.MiddleWare
@@ -40,6 +46,53 @@ namespace BankAPI.MiddleWare
                     b => b.MigrationsAssembly("BankAPI"));
             });
 
+        }
+
+        public static IServiceCollection ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddTransient<DbContext, KachContext>();
+            services.AddTransient<IUnitofWork, UnitofWork<KachContext>>();            
+
+            return services;
+        }
+
+        public static void ConfigureAuthorization(this IServiceCollection services)
+        {            
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("AdminRolePolicy", p => p.RequireRole("Admin"));
+            });
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("CustomerRolePolicy", p => p.RequireRole("Customer"));
+            });
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("MerchantRolePolicy", p => p.RequireRole("Merchant"));
+            });
+
+        }
+        public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = Environment.GetEnvironmentVariable("SECRET");
+            services.AddAuthentication(opt => {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
+                    ValidAudience = jwtSettings.GetSection("validAudience").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                };
+            });
         }
     }
 }

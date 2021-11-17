@@ -1,4 +1,6 @@
 using BankAPI.MiddleWare;
+using BankAPI.Models.Interfaces;
+using BankAPI.Models.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -35,8 +37,20 @@ namespace BankAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank Try_Kach", Version = "v1" });
             });
-            services.AddAuthenticationCore();
+            services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddAuthentication();
+
+            services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
+            services.ConfigureAuthorization();
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +72,7 @@ namespace BankAPI
             });
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

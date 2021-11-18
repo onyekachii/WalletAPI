@@ -17,14 +17,10 @@ namespace BankAPI.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
         private readonly IAuthenticationManager _authManager;
-
-        //public AuthenticationController(ILoggerManager logger, IMapper mapper, UserManager<User> userManager, IAuthenticationManager authManager)
 
         public AuthenticationController(UserManager<User> userManager, IAuthenticationManager authManager)
         {
-            _userManager = userManager;
             _authManager = authManager;
         }
 

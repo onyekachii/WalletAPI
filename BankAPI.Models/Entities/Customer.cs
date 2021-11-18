@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,9 @@ namespace BankAPI.Models.Entities
     public class Customer : IBaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
+
+        [ForeignKey("User")]
         public string UserId { get; set; }
         public User User { get; set; }
         public double AccountNumber { get; set; }

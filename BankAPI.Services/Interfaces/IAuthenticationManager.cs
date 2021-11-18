@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankAPI.Models.Interfaces
-{
+namespace BankAPI.Services.Interfaces
+{    
     public interface IAuthenticationManager
     {
         Task<bool> ValidateUser(LoginDTO userForAuth);

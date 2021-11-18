@@ -1,11 +1,14 @@
 using BankAPI.MiddleWare;
-using BankAPI.Models.Interfaces;
 using BankAPI.Models.Utilities;
+using BankAPI.SeedConfiguration;
+using BankAPI.Services.Implementation;
+using BankAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,22 +36,15 @@ namespace BankAPI
             services.ConfigureDbContext(Configuration);
             services.ConfigureCors();
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bank Try_Kach", Version = "v1" });
-            });
+            services.ConfigureSwaggerGen();
             services.AddAuthentication();
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
-
-            services.AddAuthentication();
-
-            services.ConfigureIdentity();
-            services.ConfigureJWT(Configuration);
+            //services.Configure<ApiBehaviorOptions>(options =>
+            //{
+            //    options.SuppressModelStateInvalidFilter = true;
+            //});
+           
             services.ConfigureAuthorization();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         }
@@ -79,6 +75,9 @@ namespace BankAPI
             {
                 endpoints.MapControllers();
             });
+
+            SeedRoles.EnsurePopulated(app);
+            SeedUsers.EnsurePopulated(app);
         }
     }
 }

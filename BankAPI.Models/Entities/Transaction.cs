@@ -11,10 +11,10 @@ namespace BankAPI.Models.Entities
     public class Transaction
     {
         [Key]
-        public int Id { get; set; }
+        public int TransactionId { get; set; }
         public TransactionType TransactionType { get; set; }
         public double Amount { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
+        public int RecipientId { get; set; }
+        public int SenderId { get; set; }
     }
 }

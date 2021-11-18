@@ -19,29 +19,26 @@ namespace BankAPI.Models.SeedConfiguration
         (
         new Customer
         {
-            Id = 1,
+            CustomerId = 1,
             AccountNumber= AccountGenerator.GenerateAccountNumber(),
             Balance = 1000,
             AccountType = AccountType.Student,
-            UserId = "2",
             CreatedAt = DateTime.Now
         },
         new Customer
         {
-            Id = 2,
+            CustomerId = 2,
             AccountNumber = AccountGenerator.GenerateAccountNumber(),
-            Balance = 5000,
+            Balance = 10000,
             AccountType = AccountType.Savings,
-            UserId = "3",
             CreatedAt = DateTime.Now
         },
         new Customer
         {
-            Id = 3,
+            CustomerId = 3,
             AccountNumber = AccountGenerator.GenerateAccountNumber(),
-            Balance = 1000,
+            Balance = 100000,
             AccountType = AccountType.Merchant,
-            UserId = "4",
             CreatedAt = DateTime.Now
         }
         );

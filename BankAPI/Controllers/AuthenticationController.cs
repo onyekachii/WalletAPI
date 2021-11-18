@@ -1,9 +1,11 @@
 ﻿using BankAPI.Models.DTOs;
 using BankAPI.Models.Entities;
-using BankAPI.Models.Interfaces;
+using BankAPI.Repository.Implementations;
+using BankAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +30,7 @@ namespace BankAPI.Controllers
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginModel)
-        {
+        {            
             if (!await _authManager.ValidateUser(loginModel))
                 return Unauthorized();
             

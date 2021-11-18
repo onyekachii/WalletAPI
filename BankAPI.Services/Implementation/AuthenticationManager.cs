@@ -1,6 +1,6 @@
 ﻿using BankAPI.Models.DTOs;
 using BankAPI.Models.Entities;
-using BankAPI.Models.Interfaces;
+using BankAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankAPI.Models.Utilities
+namespace BankAPI.Services.Implementation
 {
     public class AuthenticationManager : IAuthenticationManager
     {
@@ -40,7 +40,8 @@ namespace BankAPI.Models.Utilities
 
         private SigningCredentials GetSigningCredentials()
         {
-            var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"));
+            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var key = Encoding.UTF8.GetBytes(jwtSettings.GetSection("Secret").Value);
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
@@ -70,4 +71,3 @@ namespace BankAPI.Models.Utilities
         }
     }
 }
-

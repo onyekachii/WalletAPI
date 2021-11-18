@@ -21,7 +21,7 @@ namespace BankAPI.Migrations
 
             modelBuilder.Entity("BankAPI.Models.Entities.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -50,7 +50,7 @@ namespace BankAPI.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -59,39 +59,36 @@ namespace BankAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            AccountNumber = 211166362.0,
+                            CustomerId = 1,
+                            AccountNumber = 211175343.0,
                             AccountType = 2,
                             Balance = 1000.0,
-                            CreatedAt = new DateTime(2021, 11, 17, 12, 6, 27, 670, DateTimeKind.Local).AddTicks(4703),
+                            CreatedAt = new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(5376),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "2"
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 2,
-                            AccountNumber = 211167070.0,
+                            CustomerId = 2,
+                            AccountNumber = 211177842.0,
                             AccountType = 1,
-                            Balance = 5000.0,
-                            CreatedAt = new DateTime(2021, 11, 17, 12, 6, 27, 670, DateTimeKind.Local).AddTicks(6136),
+                            Balance = 10000.0,
+                            CreatedAt = new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(7732),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "3"
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = 3,
-                            AccountNumber = 211167089.0,
+                            CustomerId = 3,
+                            AccountNumber = 211177897.0,
                             AccountType = 3,
-                            Balance = 1000.0,
-                            CreatedAt = new DateTime(2021, 11, 17, 12, 6, 27, 670, DateTimeKind.Local).AddTicks(6203),
+                            Balance = 100000.0,
+                            CreatedAt = new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(7868),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "4"
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -132,33 +129,11 @@ namespace BankAPI.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            ConcurrencyStamp = "f232e37a-c706-4387-b84a-1baaf2d14ab4",
-                            CreatedAt = new DateTime(2021, 11, 17, 12, 6, 27, 603, DateTimeKind.Local).AddTicks(9694),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "customer",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = "2",
-                            ConcurrencyStamp = "fec39382-7602-41eb-82c8-7dbb5eb537a2",
-                            CreatedAt = new DateTime(2021, 11, 17, 12, 6, 27, 605, DateTimeKind.Local).AddTicks(4213),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Admin",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("BankAPI.Models.Entities.Transaction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TransactionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -166,16 +141,16 @@ namespace BankAPI.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<string>("From")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("To")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TransactionType")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("TransactionId");
 
                     b.ToTable("Transactions");
                 });
@@ -252,76 +227,6 @@ namespace BankAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e946ac9-a72c-41a4-a5a3-5e5283e81b44",
-                            Email = "trykach@api.com",
-                            EmailConfirmed = false,
-                            Firstname = "Try",
-                            Lastname = "Kach",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEF5uqnYUIstS0Rn+TJ/ZZg6giknEBvu/wvwvBYGcLzjEV4gHK0IeZp+bqs6d60WWgw==",
-                            PhoneNumber = "08080808080",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "48eb06b9-5108-463e-912b-11f05e64fb17",
-                            TwoFactorEnabled = false,
-                            UserName = "kes"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c643032b-88ef-4392-8661-470b76f23105",
-                            Email = "trykachuser@api.com",
-                            EmailConfirmed = false,
-                            Firstname = "User",
-                            Lastname = "Kach",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAELFmRKGgmrutakCbnhyYL8b1mRAxIDanrs4w8Ot55pM/7RUDB1dSeiYWQyrxGUR+3A==",
-                            PhoneNumber = "07080808080",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7fb96368-a8d5-4296-9d97-45d713c980bf",
-                            TwoFactorEnabled = false,
-                            UserName = "ken"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca084f91-43ad-4ce1-9ebc-f66cd13af670",
-                            Email = "trykachuser2@api.com",
-                            EmailConfirmed = false,
-                            Firstname = "AnotherUser",
-                            Lastname = "Kach",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDGiigGXpbk0ftntspWBCj+2XLKK92kq+6HDVmBQXVba+sf1OA0cfL6K01pq2iJq3Q==",
-                            PhoneNumber = "06080808080",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec8f250d-d561-4159-a53e-9ddba657bcdb",
-                            TwoFactorEnabled = false,
-                            UserName = "kach"
-                        },
-                        new
-                        {
-                            Id = "4",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7c825eb-a5d8-43c6-8330-ec04c4ee30bc",
-                            Email = "trykachmerchant@api.com",
-                            EmailConfirmed = false,
-                            Firstname = "merchant",
-                            Lastname = "Kach",
-                            LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENnSK8Mk7qhe9G1cgU9QBrqR6qEHLhkzSWADOZ9MsaT9Nm7nHVAy0qr3W1qTFwvp/Q==",
-                            PhoneNumber = "09080808080",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "49377b25-f98e-4ce3-b9ef-d64e08e90cbf",
-                            TwoFactorEnabled = false,
-                            UserName = "kumia"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -407,28 +312,6 @@ namespace BankAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1",
-                            RoleId = "2"
-                        },
-                        new
-                        {
-                            UserId = "2",
-                            RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "3",
-                            RoleId = "1"
-                        },
-                        new
-                        {
-                            UserId = "4",
-                            RoleId = "1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

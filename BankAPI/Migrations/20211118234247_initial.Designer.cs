@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankAPI.Migrations
 {
     [DbContext(typeof(KachContext))]
-    [Migration("20211118143534_eewe")]
-    partial class eewe
+    [Migration("20211118234247_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,10 +62,10 @@ namespace BankAPI.Migrations
                         new
                         {
                             CustomerId = 1,
-                            AccountNumber = 211175343.0,
+                            AccountNumber = 211169341.0,
                             AccountType = 2,
                             Balance = 1000.0,
-                            CreatedAt = new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(5376),
+                            CreatedAt = new DateTime(2021, 11, 19, 0, 42, 45, 706, DateTimeKind.Local).AddTicks(6939),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -73,10 +73,10 @@ namespace BankAPI.Migrations
                         new
                         {
                             CustomerId = 2,
-                            AccountNumber = 211177842.0,
+                            AccountNumber = 211170651.0,
                             AccountType = 1,
                             Balance = 10000.0,
-                            CreatedAt = new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(7732),
+                            CreatedAt = new DateTime(2021, 11, 19, 0, 42, 45, 706, DateTimeKind.Local).AddTicks(8299),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -84,10 +84,10 @@ namespace BankAPI.Migrations
                         new
                         {
                             CustomerId = 3,
-                            AccountNumber = 211177897.0,
+                            AccountNumber = 211170680.0,
                             AccountType = 3,
                             Balance = 100000.0,
-                            CreatedAt = new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(7868),
+                            CreatedAt = new DateTime(2021, 11, 19, 0, 42, 45, 706, DateTimeKind.Local).AddTicks(8377),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -148,6 +148,9 @@ namespace BankAPI.Migrations
 
                     b.Property<int>("SenderId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TransactionTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TransactionType")
                         .HasColumnType("int");

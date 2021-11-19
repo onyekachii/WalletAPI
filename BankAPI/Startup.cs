@@ -35,7 +35,8 @@ namespace BankAPI
         {
             services.ConfigureDbContext(Configuration);
             services.ConfigureCors();
-            services.AddControllers();
+            services.ConfigureRepositories();
+            services.AddControllers().AddNewtonsoftJson();
             services.ConfigureSwaggerGen();
             services.AddAuthentication();
             services.ConfigureIdentity();
@@ -44,9 +45,10 @@ namespace BankAPI
             //{
             //    options.SuppressModelStateInvalidFilter = true;
             //});
-           
+
             services.ConfigureAuthorization();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

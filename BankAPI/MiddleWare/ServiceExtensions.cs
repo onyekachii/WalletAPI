@@ -2,6 +2,8 @@
 using BankAPI.Models.Entities;
 using BankAPI.Repository.Implementations;
 using BankAPI.Repository.Interfaces;
+using BankAPI.Services.Implementation;
+using BankAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -49,10 +51,13 @@ namespace BankAPI.MiddleWare
 
         }
 
-        public static IServiceCollection ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
             services.AddTransient<DbContext, KachContext>();
-            services.AddTransient<IUnitofWork, UnitofWork<KachContext>>();            
+            services.AddTransient<IUnitofWork, UnitofWork<KachContext>>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IServiceFactory, ServiceFactory>();
 
             return services;
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BankAPI.Migrations
 {
-    public partial class eewe : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,7 +62,8 @@ namespace BankAPI.Migrations
                     TransactionType = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     RecipientId = table.Column<int>(type: "int", nullable: false),
-                    SenderId = table.Column<int>(type: "int", nullable: false)
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    TransactionTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,17 +205,17 @@ namespace BankAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerId", "AccountNumber", "AccountType", "Balance", "CreatedAt", "DeletedAt", "IsDeleted", "UpdatedAt", "UserId" },
-                values: new object[] { 1, 211175343.0, 2, 1000.0, new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(5376), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
+                values: new object[] { 1, 211169341.0, 2, 1000.0, new DateTime(2021, 11, 19, 0, 42, 45, 706, DateTimeKind.Local).AddTicks(6939), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerId", "AccountNumber", "AccountType", "Balance", "CreatedAt", "DeletedAt", "IsDeleted", "UpdatedAt", "UserId" },
-                values: new object[] { 2, 211177842.0, 1, 10000.0, new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(7732), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
+                values: new object[] { 2, 211170651.0, 1, 10000.0, new DateTime(2021, 11, 19, 0, 42, 45, 706, DateTimeKind.Local).AddTicks(8299), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerId", "AccountNumber", "AccountType", "Balance", "CreatedAt", "DeletedAt", "IsDeleted", "UpdatedAt", "UserId" },
-                values: new object[] { 3, 211177897.0, 3, 100000.0, new DateTime(2021, 11, 18, 15, 35, 32, 778, DateTimeKind.Local).AddTicks(7868), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
+                values: new object[] { 3, 211170680.0, 3, 100000.0, new DateTime(2021, 11, 19, 0, 42, 45, 706, DateTimeKind.Local).AddTicks(8377), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

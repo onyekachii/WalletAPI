@@ -6,16 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankAPI.Models.Entities
+namespace BankAPI.Models.DTOs
 {
-    public class Transaction
+    public class TransferDTO
     {
-        [Key]
-        public int TransactionId { get; set; }
-        public TransactionType TransactionType { get; set; }
+        [Required]
         public double Amount { get; set; }
-        public int RecipientId { get; set; }
+
+        [Required]
+        public double AccountNumber { get; set; }
+
+        [Required]
         public int SenderId { get; set; }
-        public DateTime TransactionTime { get; set; }
+
     }
 }

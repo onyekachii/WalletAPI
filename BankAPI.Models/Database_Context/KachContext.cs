@@ -20,10 +20,7 @@ namespace BankAPI.Models.DataBaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
-            base.OnModelCreating(modelBuilder);
-            //modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            //modelBuilder.ApplyConfiguration(new UserConfiguration());
-            //modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+            base.OnModelCreating(modelBuilder);            
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
         }
 

@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BankAPI.Models\BankAPI.Models.csproj" />
+    <ProjectReference Include="..\BankAPI.Repository\BankAPI.Repository.csproj" />
   </ItemGroup>
 
 </Project>

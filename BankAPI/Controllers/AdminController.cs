@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BankAPI.ActionFilters;
 using BankAPI.Models.DTOs;
 using BankAPI.Models.Entities;
 using BankAPI.Services.Interfaces;
@@ -17,6 +18,7 @@ namespace BankAPI.Controllers
     [Route("api/Admin/[action]")]
     [ApiController]
     //[Authorize(Policy = "AdminRolePolicy")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public class AdminController : ControllerBase
     {
         private readonly IMapper _mapper;

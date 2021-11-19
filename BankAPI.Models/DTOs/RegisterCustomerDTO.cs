@@ -30,8 +30,9 @@ namespace BankAPI.Models.DTOs
         [Required(ErrorMessage = "Ensure you input a password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Ensure you input User name")]
+        [Required(ErrorMessage = "Ensure you input an email")]
         [MaxLength(30, ErrorMessage = "Maximum length for the Name is 30 characters.")]
+        [EmailAddress]
         public string Email { get; set; }
         public string UserName { get; set; }
     }

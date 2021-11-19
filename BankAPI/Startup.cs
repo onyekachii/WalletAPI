@@ -1,3 +1,4 @@
+using BankAPI.ActionFilters;
 using BankAPI.MiddleWare;
 using BankAPI.Models.Utilities;
 using BankAPI.SeedConfiguration;
@@ -37,14 +38,15 @@ namespace BankAPI
             services.ConfigureCors();
             services.ConfigureRepositories();
             services.AddControllers().AddNewtonsoftJson();
+            services.AddScoped<ValidationFilterAttribute>();
             services.ConfigureSwaggerGen();
             services.AddAuthentication();
             services.ConfigureIdentity();
             services.ConfigureJWT(Configuration);
-            //services.Configure<ApiBehaviorOptions>(options =>
-            //{
-            //    options.SuppressModelStateInvalidFilter = true;
-            //});
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             services.ConfigureAuthorization();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
